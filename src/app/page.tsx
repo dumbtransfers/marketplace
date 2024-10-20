@@ -1,101 +1,103 @@
+"use client"
+import { useState } from 'react';
+import { Bell, MoreVertical, ChevronRight } from 'lucide-react';
 import Image from "next/image";
+import Link from 'next/link';
+
+const agents = [
+  {
+    id: 1,
+    name: "Sofia",
+    description: "Help with General transactions",
+    price: 12,
+    avatar: "/chat-bot.webp",
+    link: 'https://dumbtransfers.com/chat'
+  },
+  {
+    id: 2,
+    name: "Alex",
+    description: "Interopolabilty",
+    price: 15,
+    avatar: "https://images.ctfassets.net/gcj8jwzm6086/5VHupNKwnDYJvqMENeV7iJ/fdd6326b7a82c8388e4ee9d4be7062d4/avalanche-avax-logo.svg",
+    link: 'https://dumbtransfers.com/chat'
+  },
+];
 
 export default function Home() {
+  const [darkMode, setDarkMode] = useState(false);
+  const [balance, setBalance] = useState(256);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+    <div className={`min-h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
+      <div className="max-w-md mx-auto p-4">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
         <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
+className="rounded-full"
+          src="/lautaro.jpg"
+          alt=" Logo"
+          width={20}
+          height={20}
           priority
         />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          {/* <img src="./public/lautaro.jpg" alt="Profile" className="rounded-full" /> */}
+          <div className="flex gap-2">
+            <button className="p-2 rounded-full bg-blue-600 text-white">
+              <Bell size={20} />
+            </button>
+            <button className="p-2 rounded-full bg-blue-600 text-white">
+              <MoreVertical size={20} />
+            </button>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+
+        {/* Balance */}
+        <div className="mb-8 text-center">
+          <h1 className="text-4xl font-bold">${balance}</h1>
+          <p className="text-sm text-blue-600 uppercase">Balance Total</p>
+          <button className="w-full bg-blue-600 text-white rounded-lg py-3 mt-4">
+            Top up
+          </button>
+        </div>
+
+        {/* Agents List */}
+        <div>
+          <h2 className="text-xl mb-4">Asistentes</h2>
+          <div className="space-y-4">
+            {agents.map(agent => (
+        
+              <div 
+                key={agent.id}
+                className="bg-blue-600 text-white p-4 rounded-xl flex items-center justify-between cursor-pointer hover:bg-blue-700 transition-colors"
+              >
+                  <Link href={agent.link}>
+                          
+                <div className="flex items-center gap-4">
+                  <Image src={agent.avatar} alt={agent.name} className="rounded-full"           width={40}
+          height={40}/>
+                  <div>
+                    <h3 className="font-medium">{agent.name}</h3>
+                    <p className="text-sm opacity-90">{agent.description}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span>${agent.price}</span>
+                  <ChevronRight size={20} />
+                </div>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Theme Toggle */}
+        <button 
+          onClick={() => setDarkMode(!darkMode)}
+          className="fixed bottom-4 right-4 p-2 rounded-full bg-blue-600 text-white"
         >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          {darkMode ? '🌞' : '🌙'}
+        </button>
+      </div>
     </div>
   );
 }
