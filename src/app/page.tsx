@@ -19,7 +19,7 @@ const agents = [
     description: "Interopolabilty",
     price: 15,
     avatar: "https://images.ctfassets.net/gcj8jwzm6086/5VHupNKwnDYJvqMENeV7iJ/fdd6326b7a82c8388e4ee9d4be7062d4/avalanche-avax-logo.svg",
-    link: 'https://dumbtransfers.com/chat'
+    link: '/chat'
   },
 ];
 
